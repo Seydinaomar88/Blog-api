@@ -1,7 +1,55 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
+
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const [error, setError] = useState("");
+
+  const [useData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (!userData.email || !userData.password) {
+      setError("Tous les champs sont obligatoire")
+      return;
+    }
+     try {
+      const response = await axios.post(
+        "http://localhost:3001/api/auth/login",
+        userData,
+      );
+
+      toast.success("connexion reussie");
+      navigate("/");
+      console.log(response.data);
+
+      localStorage.setItem("token", response.data.token);
+      
+      navigate("/Comment");
+    } catch (error) {
+      console.log(error);
+      setError("Email ou mot de passe incorrect");
+      toast.error("Erreur de connexion");
+    }
+  };
+   useEffect(() => {
+      const timer = setTimeout(() => {
+        setError("");
+      }, 3000);
+  
+      return () => {
+        clearTimeout(timer);
+      };
+    }, [error]);
+
   return (
     <div className="mx-auto mt-20 max-w-md rounded-2xl border border-gray-100 bg-white p-8 shadow-2xl">
       <h2 className="mb-6 text-center text-2xl font-bold text-gray-900">
