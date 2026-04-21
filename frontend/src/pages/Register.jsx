@@ -30,6 +30,7 @@ const Register = () => {
       console.log(response.data);
     } catch (error) {
       console.log(error);
+      toast.error("Impossible de contacter le serveur");
     }
   };
 

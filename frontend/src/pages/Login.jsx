@@ -87,7 +87,16 @@ const Login = () => {
           Connexion
         </button>
 
-        <p className="text-center">
+        <p className="text-center"/>
+        <Link to={"/comment"}>
+          <button
+            type="submit"
+            className="mt-3 w-full cursor-pointer rounded-md bg-gray-900 py-3 font-bold text-white transition-colors hover:bg-black"
+          >
+            Connexion
+          </button>
+        </Link>
+        <p className="mt-3 text-center">
           Pas de compte ?{" "}
           <Link to="/register" className="text-red-600">
             Inscrivez-vous
