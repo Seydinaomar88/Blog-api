@@ -56,24 +56,26 @@ const Login = () => {
         <div>
           <label>Email</label>
           <input
+            placeholder="email"
             value={userData.email}
             onChange={(e) =>
               setUserData({ ...userData, email: e.target.value })
             }
             type="email"
-            className="mt-1 w-full rounded-md border p-3"
+            className="mt-1 w-full rounded-md border border-gray-300 p-3 outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         <div>
           <label>Mot de passe</label>
           <input
+            placeholder="password"
             value={userData.password}
             onChange={(e) =>
               setUserData({ ...userData, password: e.target.value })
             }
             type="password"
-            className="mt-1 w-full rounded-md border p-3"
+            className="mt-1 w-full rounded-md border border-gray-300 p-3 outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -84,14 +86,7 @@ const Login = () => {
         </button>
 
         <p className="text-center" />
-        <Link to={"/comment"}>
-          <button
-            type="submit"
-            className="mt-3 w-full cursor-pointer rounded-md bg-gray-900 py-3 font-bold text-white transition-colors hover:bg-black"
-          >
-            Connexion
-          </button>
-        </Link>
+
         <p className="mt-3 text-center">
           Pas de compte ?{" "}
           <Link to="/register" className="text-red-600">

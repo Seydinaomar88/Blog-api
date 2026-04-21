@@ -1,38 +1,50 @@
-import React from "react";
+// import React, { useEffect, useState } from "react";
+// import apiClient from "../api/apiClient";
 
-const ComCard = () => {
-  return (
-    <div className="mx-auto mt-10 w-full max-w-md space-y-4">
-      <div className="rounded-2xl border border-gray-700 bg-gray-800 p-5 shadow-lg">
-        <h4 className="mb-2 text-lg font-bold text-blue-400">
-          Question technique
-        </h4>
-        <p className="leading-relaxed text-gray-300">
-          Est-ce que tu as utilisé Tailwind CSS pour tout le design ou il y a du
-          CSS perso ?
-        </p>
-      </div>
+// const ComCard = () => {
+//   const [data, setData] = useState(null);
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState(null);
 
-      <div className="rounded-2xl border border-gray-700 bg-gray-800 p-5 shadow-lg">
-        <h4 className="mb-2 text-lg font-bold text-blue-400">
-          Excellent travail
-        </h4>
-        <p className="leading-relaxed text-gray-300">
-          Le rendu final est top. Les contrastes sont bien gérés, c'est très
-          lisible.
-        </p>
-      </div>
-      <div className="rounded-2xl border border-gray-700 bg-gray-800 p-5 shadow-lg">
-        <h4 className="mb-2 text-lg font-bold text-blue-400">
-          Excellent travail
-        </h4>
-        <p className="leading-relaxed text-gray-300">
-          Le rendu final est top. Les contrastes sont bien gérés, c'est très
-          lisible.
-        </p>
-      </div>
-    </div>
-  );
-};
+//   useEffect(() => {
+//     const getPosts = async () => {
+//       setLoading(true);
+//       try {
+//         const response = await apiClient.get("/posts/");
+//         setData(response.data);
+//         console.log(response.data);
+//       } catch (error) {
+//         setError(error);
+//         console.log(error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
 
-export default ComCard;
+//     getPosts();
+//   }, [data]);
+
+//   if (loading) {
+//     return <h1>Chargement en cours...</h1>;
+//   }
+
+//   if (error) {
+//     return <h1>Une erreur est survenue</h1>;
+//   }
+
+//   return (
+//     <div className="mx-auto mt-10 w-full max-w-md space-y-4">
+//       {data?.map((post, index) => (
+//         <div
+//           key={index}
+//           className="rounded-2xl border border-gray-700 bg-gray-800 p-5 shadow-lg"
+//         >
+//           <h4 className="mb-2 text-lg font-bold text-blue-400">{post.title}</h4>
+//           <p className="leading-relaxed text-gray-300">{post.content}</p>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
+
+// export default ComCard;

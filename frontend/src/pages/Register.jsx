@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import apiClient from "../api/apiClient";
+import {
+  codeRegexMail,
+  codeRegexName,
+  codeRegexPassword,
+} from "../../utils/codeRegex";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -17,6 +22,23 @@ const Register = () => {
 
     if (!userData.name || !userData.email || !userData.password) {
       setError("Tous les champs sont requis");
+      return;
+    }
+
+    if (!codeRegexName.test(userData.name)) {
+      toast.error("veuillez saisir un nom valide");
+      return;
+    }
+
+    if (!codeRegexMail.test(userData.email)) {
+      toast.error("veuillez saisir un email valide");
+      return;
+    }
+
+    if (!codeRegexPassword.test(userData.password)) {
+      toast.error(
+        "le mot de passe doit contenir au moins un majuscule, un miniscule et supérieur ou égale à 8",
+      );
       return;
     }
 
