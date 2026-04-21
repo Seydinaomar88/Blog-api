@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import toast from "react-hot-toast";
+import apiClient from "../api/apiClient";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,17 +22,15 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/auth/login",
-        userData
-      );
+      const response = await apiClient.post("/auth/login", userData);
+
+      console.log("login : ", response.data);
 
       toast.success("Connexion réussie");
 
       localStorage.setItem("token", response.data.token);
 
       navigate("/Comment");
-
     } catch (error) {
       console.log(error);
       setError("Email ou mot de passe incorrect");
@@ -79,15 +77,13 @@ const Login = () => {
           />
         </div>
 
-        {error && (
-          <h1 className="text-center text-red-600">{error}</h1>
-        )}
+        {error && <h1 className="text-center text-red-600">{error}</h1>}
 
-        <button type="submit" className="w-full bg-black text-white p-3">
+        <button type="submit" className="w-full bg-black p-3 text-white">
           Connexion
         </button>
 
-        <p className="text-center"/>
+        <p className="text-center" />
         <Link to={"/comment"}>
           <button
             type="submit"

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import toast from "react-hot-toast";
+import apiClient from "../api/apiClient";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -21,10 +21,7 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/auth/register",
-        userData,
-      );
+      const response = await apiClient.post("/auth/register", userData);
       toast.success("creation de compte réussis");
       navigate("/");
       console.log(response.data);

@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import apiClient from "../api/apiClient";
 
 const FormComment = () => {
   const [userData, setUserData] = useState({ title: "", comment: "" });
@@ -14,11 +14,8 @@ const FormComment = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/posts/",
-        userData,
-      );
-      console.log(response.data);
+      const response = await apiClient.post("/posts/");
+      console.log("ddd", response.data);
       console.log("ok");
     } catch (error) {
       console.log(error);
