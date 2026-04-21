@@ -158,7 +158,10 @@ const FormComment = () => {
                     className="cursor-pointer"
                   />
                   <SquarePen
-                    onClick={() => setUpdate(post._id)}
+                    onClick={() => {
+                      setUpdate(post._id);
+                      setInput({ title: post.title, content: post.content });
+                    }}
                     color="yellow"
                     className="cursor-pointer"
                   />
