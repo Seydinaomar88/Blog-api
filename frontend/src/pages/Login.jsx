@@ -3,13 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-
 const Login = () => {
   const navigate = useNavigate();
 
   const [error, setError] = useState("");
 
-  const [useData, setUserData] = useState({
+  const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
@@ -18,37 +17,36 @@ const Login = () => {
     e.preventDefault();
 
     if (!userData.email || !userData.password) {
-      setError("Tous les champs sont obligatoire")
+      setError("Tous les champs sont obligatoires");
       return;
     }
-     try {
+
+    try {
       const response = await axios.post(
         "http://localhost:3001/api/auth/login",
-        userData,
+        userData
       );
 
-      toast.success("connexion reussie");
-      navigate("/");
-      console.log(response.data);
+      toast.success("Connexion réussie");
 
       localStorage.setItem("token", response.data.token);
-      
+
       navigate("/Comment");
+
     } catch (error) {
       console.log(error);
       setError("Email ou mot de passe incorrect");
       toast.error("Erreur de connexion");
     }
   };
-   useEffect(() => {
-      const timer = setTimeout(() => {
-        setError("");
-      }, 3000);
-  
-      return () => {
-        clearTimeout(timer);
-      };
-    }, [error]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setError("");
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [error]);
 
   return (
     <div className="mx-auto mt-20 max-w-md rounded-2xl border border-gray-100 bg-white p-8 shadow-2xl">
@@ -56,44 +54,43 @@ const Login = () => {
         Connexion
       </h2>
 
-      <form className="space-y-6">
+      <form onSubmit={handleLogin} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Email
-          </label>
+          <label>Email</label>
           <input
+            value={userData.email}
+            onChange={(e) =>
+              setUserData({ ...userData, email: e.target.value })
+            }
             type="email"
-            className="mt-1 w-full rounded-md border border-gray-300 p-3 outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="ton@email.com"
+            className="mt-1 w-full rounded-md border p-3"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Mot de passe
-          </label>
+          <label>Mot de passe</label>
           <input
+            value={userData.password}
+            onChange={(e) =>
+              setUserData({ ...userData, password: e.target.value })
+            }
             type="password"
-            className="mt-1 w-full rounded-md border border-gray-300 p-3 outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="••••••••"
+            className="mt-1 w-full rounded-md border p-3"
           />
         </div>
-        <div>
-          <h1 className="text-center font-medium text-red-600"></h1>
-        </div>
 
-        <button
-          type="submit"
-          className="mt-3 w-full cursor-pointer rounded-md bg-gray-900 py-3 font-bold text-white transition-colors hover:bg-black"
-        >
+        {error && (
+          <h1 className="text-center text-red-600">{error}</h1>
+        )}
+
+        <button type="submit" className="w-full bg-black text-white p-3">
           Connexion
         </button>
+
         <p className="text-center">
           Pas de compte ?{" "}
-          <Link to={"/register"}>
-            <span className="cursor-pointer font-medium text-red-600">
-              Inscrirez-vous
-            </span>
+          <Link to="/register" className="text-red-600">
+            Inscrivez-vous
           </Link>
         </p>
       </form>
