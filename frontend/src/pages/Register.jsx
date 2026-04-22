@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import apiClient from "../api/apiClient";
+import { Eye, EyeOff } from "lucide-react";
 import {
   codeRegexMail,
   codeRegexName,
@@ -11,6 +12,9 @@ import {
 const Register = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -82,6 +86,7 @@ const Register = () => {
             placeholder="baba der"
           />
         </div>
+
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Email
@@ -101,16 +106,28 @@ const Register = () => {
           <label className="block text-sm font-medium text-gray-700">
             Mot de passe
           </label>
-          <input
-            value={userData.password}
-            onChange={(e) =>
-              setUserData({ ...userData, password: e.target.value })
-            }
-            type="password"
-            className="mt-1 w-full rounded-md border border-gray-300 p-3 outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="••••••••"
-          />
+
+          <div className="relative">
+            <input
+              value={userData.password}
+              onChange={(e) =>
+                setUserData({ ...userData, password: e.target.value })
+              }
+              type={showPassword ? "text" : "password"}
+              className="mt-1 w-full rounded-md border border-gray-300 p-3 pr-10 outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="mot de passe doit contenir au moins un majuscule un minuscule et au moins 8 caractere"
+            />
+
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-3 text-gray-500 hover:text-gray-700"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
         </div>
+
         <div>
           {error && (
             <h1 className="text-center font-medium text-red-600">{error}</h1>
@@ -123,6 +140,7 @@ const Register = () => {
         >
           Connexion
         </button>
+
         <p className="text-center">
           deja un compte ?{" "}
           <Link to={"/"}>
